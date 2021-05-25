@@ -6,8 +6,14 @@ using UnityEngine.Tilemaps;
 public class PacDot : MonoBehaviour
 {
     public Tilemap dots;
-    public static int count;
+    public int count;
+    [SerializeField]
+    private PacmanMove pm;
 
+    public int getCount()
+    {
+        return count;
+    }
     private void Start()
     {
         count = 0;
@@ -18,7 +24,7 @@ public class PacDot : MonoBehaviour
         //menambah score dan menghilangkan objek setelah diambil
         if(collision.gameObject.CompareTag("Player"))
         {
-            PacmanMove.score += 10;
+            pm.plusScore(10);
             count++;
             Vector3 hitPos = Vector3.zero;
             foreach(ContactPoint2D hit in collision.contacts)

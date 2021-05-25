@@ -126,6 +126,8 @@ MonoBehaviour:
   newSprite: {fileID: 7380179335914362648, guid: 29f0b5eb052301b43882938f8c335acb, type: 3}
   runSprite: {fileID: -3544180103408141352, guid: fc33299026c1f014bb7a89c2ba982843, type: 3}
   curSprite: {fileID: 2866047112346944509, guid: 6dfcf4b79e4e1b242b22507b6c9a14d7, type: 3}
+  pm: {fileID: 2119920251369323349, guid: 99fcc1619c3b13c4ab16e371ca0c8186, type: 3}
+  pellet: {fileID: 5775142993603795296, guid: 679eb5929e37d154b9f462360b9c3356, type: 3}
 --- !u!114 &9157479051682707553
 MonoBehaviour:
   m_ObjectHideFlags: 0

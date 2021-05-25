@@ -9,29 +9,44 @@ public class PacmanMove : MonoBehaviour
     private Vector2 dest = Vector2.zero;
     private Vector2 input;
     public LayerMask solidLayer;
-
-    public static int score, lives=5;
+    private int lives;
+    private int score;
     void Start()
     {
         dest = transform.position;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {
-
-    }
-
     private bool valid(Vector3 targetPos) //cek apakah movement valid
     {
         if (Physics2D.OverlapCircle(targetPos, 0.3f, solidLayer) != null)
         {
             return false;
-        }
-    
+        } 
         return true;
     }
 
+    public int getLives()
+    {
+        return lives;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
+    public void plusScore(int s)
+    {
+        score += s;
+    }
+    public void plusLives(int l)
+    {
+        lives += l;
+    }
+    public void hurtPlayer()
+    {
+        lives -= 1;
+    }
     public void gerak()
     {
         input.x = Input.GetAxisRaw("Horizontal");

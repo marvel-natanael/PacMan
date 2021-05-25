@@ -6,8 +6,8 @@ public class EnemyBehavior : MonoBehaviour
 {
     // Start is called before the first frame update
     private Transform target;
-    public static bool dead;
-    public static bool respawn;
+    private bool dead;
+    private bool respawn;
     public Transform homepos;
     [SerializeField]
     private float speed;
@@ -20,7 +20,11 @@ public class EnemyBehavior : MonoBehaviour
     public Sprite newSprite;
     public Sprite runSprite;
     public Sprite curSprite;
-    public static bool eaten;
+    private bool eaten;
+    [SerializeField]
+    private PacmanMove pm;
+    [SerializeField]
+    private Pellet pellet;
     void Start()
     {
         dead = false;
@@ -29,8 +33,29 @@ public class EnemyBehavior : MonoBehaviour
         eaten = false;
     }
 
+    public bool getDead()
+    {
+        return dead;
+    }
+    public bool getRespawn()
+    {
+        return respawn;
+    }
+    public bool getEaten()
+    {
+        return eaten;
+    }
+
+    public void setRespawn(bool r)
+    {
+        respawn = r;
+    }
+    public void setEaten(bool e)
+    {
+        eaten = e;
+    }
     // Update is called once per frame
-    void Update()
+    public void enemyMove()
     {
         if (!respawn)
         {
@@ -40,12 +65,12 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
 
-        if(transform.position == homepos.transform.position)
+        if (transform.position == homepos.transform.position)
         {
             StartCoroutine(die());
         }
 
-        if (Pellet.poweredUP)
+        if (pellet.getpUP())
         {
             spriteRenderer.sprite = newSprite;
             if (eaten)
@@ -54,13 +79,11 @@ public class EnemyBehavior : MonoBehaviour
             }
             goHome();
         }
-        else if(spriteRenderer != runSprite)
+        else if (spriteRenderer != runSprite)
         {
             spriteRenderer.sprite = curSprite;
         }
-
     }
-
     IEnumerator die()
     {
         yield return new WaitForSeconds(1);
@@ -69,6 +92,7 @@ public class EnemyBehavior : MonoBehaviour
     }
     public void followPlayer()
     {
+        Debug.Log("a");
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
 
@@ -80,16 +104,16 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (Pellet.poweredUP)
+            if (pellet.getpUP())
             {
 
-                PacmanMove.score += 200;
+                pm.plusScore(200);
                 eaten = true;
                 goHome();
             }
             else
             {
-                PacmanMove.lives -= 1;
+                pm.hurtPlayer();
             }
 
         }

@@ -4,28 +4,32 @@ using UnityEngine;
 
 public class FruitFactory : MonoBehaviour
 {
+    private bool taken;
     [SerializeField]
     private Transform spawnPos;
     [SerializeField]
     private Fruit[] factory;
-    private bool taken;
     // Start is called before the first frame update
     void Start()
     {
         taken = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool getTaken()
     {
-        //untuk spawn
+        return taken;
+    }
+
+    public void spawnFruit(int s)
+    {
         if (!taken)
         {
-            var inst = factory[FruitBehavior.valIndex].getNewInstance();
+            var inst = factory[s].getNewInstance();
             inst.transform.position = spawnPos.transform.position;
             inst.GetComponent<FruitBehavior>().enabled = true;
             inst.GetComponent<CircleCollider2D>().enabled = true;
             taken = true;
         }
     }
+
 }

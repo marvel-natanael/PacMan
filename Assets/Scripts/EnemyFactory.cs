@@ -8,8 +8,10 @@ public class EnemyFactory : MonoBehaviour
     private Transform homePos;
     [SerializeField]
     private Enemy[] factory;
-    int toSpawn;
+    private int toSpawn;
     string tagName;
+    [SerializeField]
+    private EnemyBehavior[] enemyBehavior;
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
@@ -30,17 +32,17 @@ public class EnemyFactory : MonoBehaviour
                 toSpawn = 3;
                 break;
         }
-        EnemyBehavior.eaten = false;
+        enemyBehavior[toSpawn].setEaten(false);
     }
-    private void Update()
+    public void spawnEnemy()
     {
-        if (EnemyBehavior.dead)
+        if (enemyBehavior[toSpawn].getDead())
         {
             var inst = factory[toSpawn].getNewInstance();
             inst.transform.position = homePos.transform.position;
             inst.GetComponent<EnemyBehavior>().enabled = true;
             inst.GetComponent<CircleCollider2D>().enabled = true;
-            EnemyBehavior.respawn = false;
+            enemyBehavior[toSpawn].setRespawn(false);
         }
     }
 }

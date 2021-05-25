@@ -5,8 +5,12 @@ using UnityEngine.Tilemaps;
 public class Pellet : MonoBehaviour
 {
     public Tilemap pellet;
-    public static bool poweredUP;
+    private bool poweredUP;
 
+    public bool getpUP()
+    {
+        return poweredUP;
+    }
     private void Start()
     {
         poweredUP = false;
